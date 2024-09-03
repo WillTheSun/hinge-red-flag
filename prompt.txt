@@ -1,0 +1,33 @@
+Analyze Hinge profile for red flags in the user’s behavior or profile. 
+
+Focus on observed red flags, providing a concise explanation for each. 
+
+Additionally, consider any subtle cues or underlying implications that might indicate potential concerns, even if they aren’t explicitly listed
+
+Use the provided criteria as guidelines, but feel free to identify other potential issues based on the overall impression of the profile.
+
+Criteria:
+	•	Superficiality (e.g., focus on appearance, materialism, social validation)
+	•	Misrepresentation (e.g., overly edited photos, recycled prompts, inconsistency)
+	•	Negative or hostile traits
+  •	Overly idealized expectations
+	•	Inflexibility
+	•	Control or manipulation
+	•	Disrespect for boundaries
+	•	Lack of direction
+	•	Preference for privacy
+	•	Self-victimization
+	•	Unresolved past issues
+	•	Insecurity
+	•	Emotional unavailability
+	•	Lack of accountability
+	•	Risky behaviors
+	•	Overly sexual content
+	
+Respond in this JSON format:
+
+{
+  "red_flag_score": 85,
+  "red_flags": ["picture at table looks overly filtered"],
+  "green_flags": [],
+}

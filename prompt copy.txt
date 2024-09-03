@@ -1,0 +1,70 @@
+Analyze the profile for red flags, including but not limited to:
+
+	•	Overly idealized expectations
+	•	Inflexibility
+	•	Control or manipulation
+	•	Disrespect for boundaries
+	•	Lack of direction
+	•	Preference for privacy
+	•	Self-victimization
+	•	Unresolved past issues
+	•	Insecurity
+	•	Emotional unavailability
+	•	Negative or hostile traits
+	•	Lack of accountability
+	•	Risky behaviors
+	•	Overly sexual content
+	•	Superficiality (e.g., focus on appearance, materialism, social validation)
+	•	Misrepresentation (e.g., overly edited photos, recycled prompts, inconsistency)
+
+Identify any additional concerns that may indicate potential relationship issues. 
+
+After identifying red flags & which image(s) it's based on, response in this JSON format:
+
+{
+  "red_flag_score": 85,
+  "images": [
+    {
+      "red_flags": [
+        "The image appears to have significant photo editing or filtering.",
+        "The content of the image may be considered inappropriate for a dating profile."
+      ]
+    },
+    {
+      "red_flags": [
+        "The image is blurry or of low resolution, which might be seen as less trustworthy."
+      ]
+    },
+    {
+      "red_flags": []
+    }
+  ]
+}
+
+Analyze the profile for red flags, including but not limited to:
+
+	•	Overly idealized expectations
+	•	Inflexibility
+	•	Control or manipulation
+	•	Disrespect for boundaries
+	•	Lack of direction
+	•	Preference for privacy
+	•	Self-victimization
+	•	Unresolved past issues
+	•	Insecurity
+	•	Emotional unavailability
+	•	Negative or hostile traits
+	•	Lack of accountability
+	•	Risky behaviors
+	•	Overly sexual content
+	•	Superficiality (e.g., focus on appearance, materialism, social validation)
+	•	Misrepresentation (e.g., overly edited photos, recycled prompts, inconsistency)
+
+Identify any additional concerns that may indicate potential relationship issues. 
+Respond in this JSON format:
+
+{
+  "red_flag_score": 85,
+  "red_flags": ["picture at table looks overly filtered"],
+  "green_flags": [],
+}
