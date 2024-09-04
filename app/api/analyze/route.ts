@@ -38,24 +38,11 @@ async function processImageWithOpenAI(image: string, prompt: string) {
 export async function POST(request: Request) {
   if (process.env.NODE_ENV === 'development') {
     const hardcodedResponse = {
-      red_flag_score: 55,
+      red_flag_score: "3",
       red_flags: [
-        "Overly idealized expectations: 'I'm looking for an open-minded cutie to tie up'",
-        "Inflexibility: None observed",
         "Control or manipulation: Potential hint in statement about 'tie up'",
-        "Disrespect for boundaries: None observed",
-        "Lack of direction: None observed",
-        "Preference for privacy: None observed",
-        "Self-victimization: None observed",
-        "Unresolved past issues: None observed",
-        "Insecurity: None observed",
-        "Emotional unavailability: None observed",
-        "Negative or hostile traits: None observed",
-        "Lack of accountability: None observed",
-        "Risky behaviors: None observed",
         "Overly sexual content: 'I'm looking for an open-minded cutie to tie up'",
         "Superficiality: Focus on achievements and social scenarios",
-        "Misrepresentation: None observed (e.g., photos appear genuine)"
       ],
       green_flags: [
         "Engaging in various hobbies and interests",
