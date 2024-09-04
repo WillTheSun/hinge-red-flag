@@ -87,29 +87,29 @@ export default function ImageUpload({ onStripGenerated }: ImageUploadProps) {
     return stripCanvas.toDataURL('image/jpeg', 0.7); // 0.7 quality (70%)
   };
 
-  // Testing logic to load Screenshot images
-//   const loadTestImages = async () => {
-//     try {
-//       const testImageNames = Array.from({ length: 8 }, (_, i) => `image${i + 1}.png`);
-//       const loadedImages = await Promise.all(testImageNames.map(async (name) => {
-//         const response = await fetch(`/testImages/${name}`);
-//         const blob = await response.blob();
-//         return new File([blob], name, { type: blob.type });
-//       }));
+//   Testing logic to load Screenshot images
+  const loadTestImages = async () => {
+    try {
+      const testImageNames = Array.from({ length: 8 }, (_, i) => `image${i + 1}.png`);
+      const loadedImages = await Promise.all(testImageNames.map(async (name) => {
+        const response = await fetch(`/testImages/${name}`);
+        const blob = await response.blob();
+        return new File([blob], name, { type: blob.type });
+      }));
 
-//       setImages(loadedImages);
-//       processImages(loadedImages);
-//     } catch (error) {
-//       console.error('Error loading test images:', error);
-//       // Handle error (e.g., show user feedback)
-//     }
-//   };
+      setImages(loadedImages);
+      processImages(loadedImages);
+    } catch (error) {
+      console.error('Error loading test images:', error);
+      // Handle error (e.g., show user feedback)
+    }
+  };
 
-//   useEffect(() => {
-//     if (process.env.NODE_ENV === 'development') {
-//       loadTestImages();
-//     }
-//   }, []);
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      loadTestImages();
+    }
+  }, []);
 
   return (
     <div className="w-full max-w-md mx-auto">
