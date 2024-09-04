@@ -11,10 +11,10 @@ interface Analysis {
 }
 
 const getScoreLabel = (score: number) => {
-  if (score <= 1) return { label: 'Great', color: 'text-green-600' };
-  if (score <= 2) return { label: 'Good', color: 'text-green-500' };
-  if (score <= 3) return { label: 'Caution', color: 'text-yellow-500' };
-  if (score <= 4) return { label: 'Warning', color: 'text-orange-500' };
+  if (score <= 1) return { label: 'Safe', color: 'text-green-600' };
+  if (score <= 2) return { label: 'Low Risk', color: 'text-green-500' };
+  if (score <= 3) return { label: 'Be Cautious', color: 'text-yellow-500' };
+  if (score <= 4) return { label: 'High Alert', color: 'text-orange-500' };
   return { label: 'Danger', color: 'text-red-600' };
 };
 
@@ -124,17 +124,17 @@ export default function Home() {
 
             {/* Red Flags */}
             <div className="mt-6 bg-[#FDE2E2] p-4 rounded-lg shadow">
-              <h4 className="text-lg font-bold text-[#D0021B] mb-3">Red Flags</h4>
-              <ul className="list-none pl-0 space-y-2">
+              <h4 className="text-lg font-bold text-[#D0021B] mb-2">Red Flags</h4>
+              <ul className="list-none pl-0 space-y-1">
                 {analysis.red_flags.slice(0, 3).map((flag, index) => (
-                  <li key={index} className="flex items-start text-[#D0021B] text-base">
-                    <span className="mr-2 text-sm flex-shrink-0 mt-0.5">🚩</span>
+                  <li key={index} className="flex items-start text-[#D0021B] text-sm">
+                    <span className="mr-2 text-xs flex-shrink-0 mt-0.5">🚩</span>
                     <span className="mt-0.5">{flag}</span>
                   </li>
                 ))}
               </ul>
               {analysis.red_flags.length > 3 && (
-                <p className="text-sm text-[#D0021B] mt-2 italic">
+                <p className="text-xs text-[#D0021B] mt-1 italic">
                   {analysis.red_flags.length - 3} more red flag{analysis.red_flags.length - 3 > 1 ? 's' : ''} hidden
                 </p>
               )}
@@ -142,11 +142,11 @@ export default function Home() {
 
             {/* Green Flags */}
             <div className="mt-6 bg-[#E2F5E2] p-4 rounded-lg shadow">
-              <h4 className="text-lg font-bold text-[#2ECC40] mb-3">Green Flags</h4>
-              <ul className="list-none pl-0 space-y-2">
+              <h4 className="text-lg font-bold text-[#2ECC40] mb-2">Green Flags</h4>
+              <ul className="list-none pl-0 space-y-1">
                 {analysis.green_flags.map((flag, index) => (
-                  <li key={index} className="flex items-start text-[#2ECC40] text-base">
-                    <span className="mr-2 text-xs flex-shrink-0 mt-1.5">✅</span>
+                  <li key={index} className="flex items-start text-[#2ECC40] text-sm">
+                    <span className="mr-2 text-xs flex-shrink-0 mt-1">✅</span>
                     <span className="mt-0.5">{flag}</span>
                   </li>
                 ))}
