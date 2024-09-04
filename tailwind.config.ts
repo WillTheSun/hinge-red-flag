@@ -16,7 +16,7 @@ const config: Config = {
       },
       backgroundSize: {
         "custom-grid": "20px 20px",
-      },
+      }
     },
   },
   plugins: [

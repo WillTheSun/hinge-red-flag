@@ -36,9 +36,9 @@ async function processImageWithOpenAI(image: string, prompt: string) {
 }
 
 export async function POST(request: Request) {
-  if (process.env.NODE_ENV === 'development remove') {
+  if (process.env.NODE_ENV === 'development') {
     const hardcodedResponse = {
-      red_flag_score: "3",
+      score: "3",
       red_flags: [
         "Control or manipulation: Potential hint in statement about 'tie up'",
         "Overly sexual content: 'I'm looking for an open-minded cutie to tie up'",

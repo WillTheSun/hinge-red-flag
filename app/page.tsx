@@ -75,23 +75,20 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-6 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-slate-200 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.8))] -z-10"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sky-400 via-rose-100 to-lime-200 opacity-20 -z-20"></div>
-
+    <main className="flex min-h-screen flex-col items-center justify-start p-6 md:p-12 bg-[#F5F5F5] relative overflow-hidden">
       <div className="text-center w-full max-w-5xl mb-8">
-        <h1 className="text-3xl font-bold text-[#2A70C2] mb-2">Hinge Red Flag Check</h1>
+        <h1 className="text-3xl font-bold text-[#5B9BD5] mb-2">Hinge Red Flag Check</h1>
         <h2 className="text-sm text-gray-700">Analyze your matches for red flags and green lights</h2>
       </div>
 
-      <div className="w-full max-w-5xl flex-grow flex flex-col items-center">
+      <div className="w-full max-w-5xl flex-grow flex flex-col">
         {analysis && (
-          <div className="w-full">
+          <div className="w-full mb-8">
             <h3 className="text-xl font-bold text-gray-800 text-center mb-4">Analysis Result:</h3>
             
             {/* Red Flag Score Display */}
-            <div className="mb-4 bg-[#F5F5F5] p-4 rounded-lg shadow-md">
-              <p className="text-lg font-bold mb-2 text-gray-800"></p>
+            <div className="mb-4 bg-[#F0F0F0] p-4 rounded-lg shadow-md">
+              <p className="text-lg font-bold mb-2 text-gray-800">Red Flag Score:</p>
               <div className="flex items-center justify-between">
                 <div className="flex space-x-1">
                   {getTrafficLightColors(analysis.score).map(({ color, opacity }, index) => (
@@ -116,46 +113,29 @@ export default function Home() {
             </div>
 
             {/* Red Flags */}
-            <div className="mt-6 bg-[#FDECEA] p-4 rounded-lg shadow">
-              <h4 className="text-xl font-extrabold text-[#B0011B] mb-3">Red Flags:</h4>
+            <div className="mt-6 bg-[#FDE2E2] p-4 rounded-lg shadow">
+              <h4 className="text-xl font-extrabold text-[#D0021B] mb-3">Red Flags:</h4>
               <ul className="list-none pl-0 space-y-2">
                 {analysis.red_flags.map((flag, index) => (
-                  <li key={index} className="flex items-start text-[#B0011B] text-sm">
+                  <li key={index} className="flex items-start text-[#D0021B] text-base">
                     <span className="mr-2 text-base flex-shrink-0 mt-0.5">🚩</span>
-                    <span>{flag}</span>
+                    <span className="mt-0.5">{flag}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Green Flags */}
-            <div className="mt-6 bg-[#EAF6EA] p-4 rounded-lg shadow">
-              <h4 className="text-xl font-extrabold text-[#5ED301] mb-3">Green Flags:</h4>
+            <div className="mt-6 bg-[#E2F5E2] p-4 rounded-lg shadow">
+              <h4 className="text-xl font-extrabold text-[#2ECC40] mb-3">Green Flags:</h4>
               <ul className="list-none pl-0 space-y-2">
                 {analysis.green_flags.map((flag, index) => (
-                  <li key={index} className="flex items-start text-[#5ED301] text-sm">
+                  <li key={index} className="flex items-start text-[#2ECC40] text-base">
                     <span className="mr-2 text-base flex-shrink-0 mt-0.5">✅</span>
-                    <span>{flag}</span>
+                    <span className="mt-0.5">{flag}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Action buttons */}
-            <div className="mt-8 flex justify-center gap-4">
-              <button
-                onClick={handleReanalyze}
-                className="bg-[#2A70C2] hover:bg-[#1A60B2] text-white font-bold p-3 rounded-lg transition duration-300 flex items-center justify-center w-12 h-12"
-                aria-label="Reanalyze"
-              >
-                <FaRedo className="text-xl" />
-              </button>
-              <button 
-                className="bg-[#2A70C2] hover:bg-[#1A60B2] text-white font-bold p-3 rounded-lg transition duration-300 flex items-center justify-center w-12 h-12"
-                aria-label="Share"
-              >
-                <FaShare className="text-xl" />
-              </button>
             </div>
           </div>
         )}
@@ -166,16 +146,19 @@ export default function Home() {
             <div className="mt-8">
               <button
                 onClick={handleAnalyze}
-                className="bg-[#2A70C2] hover:bg-[#1A60B2] text-white font-bold py-2 px-6 rounded-lg text-lg transition duration-300 flex items-center"
+                className="bg-gradient-to-b from-[#5B9BD5] to-[#3D7EAA] hover:from-[#3D7EAA] hover:to-[#2A5A8A] text-white font-bold py-1.5 px-4 rounded-md text-base transition duration-300 flex items-center shadow-md hover:shadow-lg"
                 disabled={!stripImage || isLoading}
               >
                 {isLoading ? (
                   <>
-                    <FaSpinner className="animate-spin mr-2" />
+                    <FaSpinner className="animate-spin mr-1.5 text-xl" />
                     Analyzing...
                   </>
                 ) : (
-                  'Analyze'
+                  <>
+                    <span className="mr-1.5 text-xl">🔍</span>
+                    Analyze
+                  </>
                 )}
               </button>
             </div>
@@ -184,8 +167,27 @@ export default function Home() {
 
         {isLoading && (
           <div className="flex-grow flex flex-col items-center justify-center">
-            <FaSpinner className="animate-spin text-4xl text-[#2A70C2] mb-4" />
+            <FaSpinner className="animate-spin text-4xl text-[#007BFF] mb-4" />
             <p className="text-lg font-semibold text-gray-700">Analyzing your image...</p>
+          </div>
+        )}
+
+        {/* Action buttons at the bottom */}
+        {analysis && (
+          <div className="mt-auto pt-6 flex justify-center gap-3">
+            <button
+              onClick={handleReanalyze}
+              className="bg-gradient-to-b from-[#5B9BD5] to-[#3D7EAA] hover:from-[#3D7EAA] hover:to-[#2A5A8A] text-white font-bold p-2 rounded-md transition duration-300 flex items-center justify-center w-10 h-10 shadow-md hover:shadow-lg"
+              aria-label="Reanalyze"
+            >
+              <FaRedo className="text-lg" />
+            </button>
+            <button 
+              className="bg-gradient-to-b from-[#5B9BD5] to-[#3D7EAA] hover:from-[#3D7EAA] hover:to-[#2A5A8A] text-white font-bold p-2 rounded-md transition duration-300 flex items-center justify-center w-10 h-10 shadow-md hover:shadow-lg"
+              aria-label="Share"
+            >
+              <FaShare className="text-lg" />
+            </button>
           </div>
         )}
       </div>
