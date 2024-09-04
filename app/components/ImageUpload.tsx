@@ -150,7 +150,7 @@ export default function ImageUpload({ onStripGenerated }: ImageUploadProps) {
           </div>
         )}
       </div>
-      {processedStrip && (
+      {process.env.NODE_ENV === 'development' && processedStrip && (
         <div className="mt-4">
           <h3 className="text-sm font-semibold text-gray-700 mb-2">Processed Strip Image:</h3>
           <img
