@@ -112,38 +112,61 @@ export default function ImageUpload({ onStripGenerated }: ImageUploadProps) {
   }, []);
 
   return (
-    <div>
+    <div className="w-full max-w-md mx-auto">
       <div
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
-        style={{ border: '2px dashed #ccc', padding: '20px', marginBottom: '20px' }}
+        className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-gray-400 transition-colors duration-300"
       >
-        <p>Drag and drop images here</p>
-        <input type="file" onChange={handleFileInput} multiple accept="image/*" />
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '20px' }}>
-          {images.map((image, index) => (
-            <img
-              key={`${image.name}-${index}`}
-              src={URL.createObjectURL(image)}
-              alt={`Uploaded ${index + 1}`}
-              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
-            />
-          ))}
-        </div>
-        <p>{images.length} images uploaded</p>
+        <p className="text-gray-600 text-sm mb-2">Drag and drop images here</p>
+        <input 
+          type="file" 
+          onChange={handleFileInput} 
+          multiple 
+          accept="image/*"
+          className="hidden" 
+          id="fileInput"
+        />
+        <label 
+          htmlFor="fileInput" 
+          className="bg-[#4A90E2] hover:bg-[#3A80D2] text-white font-bold py-2 px-4 rounded-lg text-xs cursor-pointer transition duration-300"
+        >
+          Select Files
+        </label>
+        {images.length > 0 && (
+          <div className="mt-4">
+            <p className="text-gray-600 text-xs mb-2">{images.length} images uploaded</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {images.map((image, index) => (
+                <div key={`${image.name}-${index}`} className="aspect-w-1 aspect-h-1">
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt={`Uploaded ${index + 1}`}
+                    className="w-full h-full object-cover rounded border border-gray-200 shadow-sm"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
       {processedStrip && (
-        <div>
-          <h3>Processed Strip Image (40 DPI, JPG):</h3>
+        <div className="mt-4">
+          <h3 className="text-sm font-semibold text-gray-700 mb-2">Processed Strip Image:</h3>
           <img
             src={processedStrip}
             alt="Processed images strip"
-            style={{ width: '100%', height: 'auto', marginTop: '20px' }}
+            className="w-full h-auto rounded-lg shadow-sm"
           />
         </div>
       )}
       {process.env.NODE_ENV === 'development' && (
-        <button onClick={loadTestImages} style={{ marginLeft: '10px' }}>Load Test Images</button>
+        <button 
+          onClick={loadTestImages} 
+          className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg text-xs transition duration-300"
+        >
+          Load Test Images
+        </button>
       )}
     </div>
   );

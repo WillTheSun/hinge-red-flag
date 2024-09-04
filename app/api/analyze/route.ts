@@ -36,7 +36,7 @@ async function processImageWithOpenAI(image: string, prompt: string) {
 }
 
 export async function POST(request: Request) {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development remove') {
     const hardcodedResponse = {
       red_flag_score: "3",
       red_flags: [
@@ -54,7 +54,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ result: hardcodedResponse });
   }
 
-  // Existing code for production environment
   const { image } = await request.json();
   const prompt = readFileSync(join(process.cwd(), 'prompt.txt'), 'utf-8');
   
@@ -62,11 +61,17 @@ export async function POST(request: Request) {
     const rawResult = await processImageWithOpenAI(image, prompt);
     console.log('Raw result:', rawResult);
 
-    // Parse the result directly, as it should now be in JSON format
-    const result = JSON.parse(rawResult.replace(/^```json\n|\n```$/g, ''));
-    
+    // Extract JSON from the rawResult
+    const jsonMatch = rawResult.match(/```json\n([\s\S]*?)\n```/);
+    if (!jsonMatch) {
+      throw new Error('No JSON found in the response');
+    }
+
+    const jsonString = jsonMatch[1];
+    const result = JSON.parse(jsonString);
+
     // Validate the parsed result structure
-    if (!('red_flag_score' in result) || !('red_flags' in result) || !('green_flags' in result)) {
+    if (!('score' in result) || !('red_flags' in result) || !('green_flags' in result)) {
       throw new Error('Invalid result structure from OpenAI');
     }
 
