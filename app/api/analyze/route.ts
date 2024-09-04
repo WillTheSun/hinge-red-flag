@@ -36,7 +36,7 @@ async function processImageWithOpenAI(image: string, prompt: string) {
 }
 
 export async function POST(request: Request) {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'test') {
     const hardcodedResponse = {
       score: "3",
       red_flags: [
