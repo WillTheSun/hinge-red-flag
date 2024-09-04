@@ -36,18 +36,21 @@ async function processImageWithOpenAI(image: string, prompt: string) {
 }
 
 export async function POST(request: Request) {
-  if (process.env.NODE_ENV === 'test') {
+  if (process.env.NODE_ENV === 'development') {
     const hardcodedResponse = {
       score: "3",
       red_flags: [
-        "Control or manipulation: Potential hint in statement about 'tie up'",
-        "Overly sexual content: 'I'm looking for an open-minded cutie to tie up'",
-        "Superficiality: Focus on achievements and social scenarios",
+        'Focus on appearance and materialism: several pictures and text indicate a high focus on looking good and showing off materialistic achievements (ex-Google, high-flying lifestyle)',
+        'Potential misrepresentation: pictures may be overly curated or edited',
+        'Superficiality: mentions luxurious items and experiences frequently (collecting foreign liquors, National Geographic submission, TED Talk)',
+        "Overly idealized expectations: looking for 'an open minded cutie to tie up' might imply unrealistic or overly specific criteria",
+        "Negative or hostile traits: statement about 'tying up' could be interpreted as controlling or manipulative",
+        'Possibly risky behaviors: high focus on nightlife and partying'
       ],
       green_flags: [
-        "Engaging in various hobbies and interests",
-        "Education and career achievements",
-        "Appears sociable and outgoing"
+        'Adventurous and well-traveled: pictures from various locations indicate an interest in exploring the world',
+        'Educational background: mentions of Yale university and engineering career show intelligence and ambition',
+        'Hobbies and interests: collecting liquors, pottery workshops, and playing volleyball showcase a range of interests'
       ]
     };
 
@@ -62,7 +65,7 @@ export async function POST(request: Request) {
     console.log('Raw result:', rawResult);
 
     // Extract JSON from the rawResult
-    const jsonMatch = rawResult.match(/```json\n([\s\S]*?)\n```/);
+    const jsonMatch = rawResult?.match(/```json\n([\s\S]*?)\n```/);
     if (!jsonMatch) {
       throw new Error('No JSON found in the response');
     }

@@ -28,6 +28,6 @@ Respond in this JSON format:
 
 {
   "score": "1", // The score is out of 5, with 5 being the worst.
-  "red_flags": ["picture at table looks overly filtered"], // Provide a concise description if necessary, but explain in detail why & the implications.
+  "red_flags": ["Picture at table looks overly filtered"], // Provide a concise description if necessary, but explain in detail why & the implications.
   "green_flags": [],
 }

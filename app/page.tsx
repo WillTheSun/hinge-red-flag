@@ -10,6 +10,14 @@ interface Analysis {
   green_flags: string[];
 }
 
+const getScoreLabel = (score: number) => {
+  if (score <= 1) return { label: 'Great', color: 'text-green-600' };
+  if (score <= 2) return { label: 'Good', color: 'text-green-500' };
+  if (score <= 3) return { label: 'Caution', color: 'text-yellow-500' };
+  if (score <= 4) return { label: 'Warning', color: 'text-orange-500' };
+  return { label: 'Danger', color: 'text-red-600' };
+};
+
 export default function Home() {
   const [stripImage, setStripImage] = useState<string | null>(null);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
@@ -76,20 +84,19 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-6 md:p-12 bg-[#F5F5F5] relative overflow-hidden">
-      <div className="text-center w-full max-w-5xl mb-8">
-        <h1 className="text-3xl font-bold text-[#5B9BD5] mb-2">Hinge Red Flag Check</h1>
+      <div className="text-center w-full max-w-5xl mb-6">
+        <h1 className="text-3xl font-bold text-[#5B9BD5] mb-2 pt-2">Hinge Red Flag Check</h1>
         <h2 className="text-sm text-gray-700">Analyze your matches for red flags and green lights</h2>
       </div>
 
       <div className="w-full max-w-5xl flex-grow flex flex-col">
         {analysis && (
-          <div className="w-full mb-8">
-            <h3 className="text-xl font-bold text-gray-800 text-center mb-4">Analysis Result:</h3>
+          <div className="w-full mb-4">
+            <h3 className="text-lg font-bold text-gray-800 text-center mb-4">Analysis Result</h3>
             
             {/* Red Flag Score Display */}
-            <div className="mb-4 bg-[#F0F0F0] p-4 rounded-lg shadow-md">
-              <p className="text-lg font-bold mb-2 text-gray-800">Red Flag Score:</p>
-              <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
                 <div className="flex space-x-1">
                   {getTrafficLightColors(analysis.score).map(({ color, opacity }, index) => (
                     <div key={index} className="relative">
@@ -108,35 +115,59 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <span className="text-3xl font-bold text-gray-800">{analysis.score}/5</span>
+                <span className="text-sm font-bold text-gray-800">{analysis.score}/5</span>
               </div>
+              <span className={`text-sm font-bold ${getScoreLabel(analysis.score).color}`}>
+                {getScoreLabel(analysis.score).label}
+              </span>
             </div>
 
             {/* Red Flags */}
             <div className="mt-6 bg-[#FDE2E2] p-4 rounded-lg shadow">
-              <h4 className="text-xl font-extrabold text-[#D0021B] mb-3">Red Flags:</h4>
+              <h4 className="text-lg font-bold text-[#D0021B] mb-3">Red Flags</h4>
               <ul className="list-none pl-0 space-y-2">
-                {analysis.red_flags.map((flag, index) => (
+                {analysis.red_flags.slice(0, 3).map((flag, index) => (
                   <li key={index} className="flex items-start text-[#D0021B] text-base">
-                    <span className="mr-2 text-base flex-shrink-0 mt-0.5">🚩</span>
+                    <span className="mr-2 text-sm flex-shrink-0 mt-0.5">🚩</span>
+                    <span className="mt-0.5">{flag}</span>
+                  </li>
+                ))}
+              </ul>
+              {analysis.red_flags.length > 3 && (
+                <p className="text-sm text-[#D0021B] mt-2 italic">
+                  {analysis.red_flags.length - 3} more red flag{analysis.red_flags.length - 3 > 1 ? 's' : ''} hidden
+                </p>
+              )}
+            </div>
+
+            {/* Green Flags */}
+            <div className="mt-6 bg-[#E2F5E2] p-4 rounded-lg shadow">
+              <h4 className="text-lg font-bold text-[#2ECC40] mb-3">Green Flags</h4>
+              <ul className="list-none pl-0 space-y-2">
+                {analysis.green_flags.map((flag, index) => (
+                  <li key={index} className="flex items-start text-[#2ECC40] text-base">
+                    <span className="mr-2 text-xs flex-shrink-0 mt-1.5">✅</span>
                     <span className="mt-0.5">{flag}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Green Flags */}
-            <div className="mt-6 bg-[#E2F5E2] p-4 rounded-lg shadow">
-              <h4 className="text-xl font-extrabold text-[#2ECC40] mb-3">Green Flags:</h4>
-              <ul className="list-none pl-0 space-y-2">
-                {analysis.green_flags.map((flag, index) => (
-                  <li key={index} className="flex items-start text-[#2ECC40] text-base">
-                    <span className="mr-2 text-base flex-shrink-0 mt-0.5">✅</span>
-                    <span className="mt-0.5">{flag}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* New Feature: Unlock Advanced Analysis */}
+            {/* <div className="mt-6 bg-white p-4 rounded-lg shadow border border-[#5B9BD5]">
+              <h4 className="text-xl font-bold text-[#5B9BD5] mb-3">Unlock Advanced Analysis</h4>
+              <p className="text-gray-700 mb-3">
+                Unlock deeper insights with personalized questions and a comprehensive report.
+              </p>
+              <button
+                className="w-full bg-gradient-to-b from-[#5B9BD5] to-[#3D7EAA] hover:from-[#3D7EAA] hover:to-[#2A5A8A] text-white font-bold py-2 px-4 rounded-md text-base transition duration-300 shadow-md hover:shadow-lg mb-3"
+              >
+                Unlock Advanced Analysis
+              </button>
+              <p className="text-sm text-gray-600">
+                From $9.99 | Custom Questions | Detailed Report
+              </p>
+            </div> */}
           </div>
         )}
 
