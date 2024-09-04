@@ -61,18 +61,6 @@ export default function Home() {
     setStripImage(null);
   };
 
-  // Helper function to convert data URI to Blob
-  const dataURItoBlob = (dataURI: string) => {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: mimeString });
-  };
-
   const getTrafficLightColors = (score: number) => {
     const colors = Array(5).fill({ color: 'gray', opacity: 0.3 });
     const activeColor = score <= 2 ? 'green' : score <= 4 ? 'yellow' : 'red';

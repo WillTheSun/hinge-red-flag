@@ -88,28 +88,28 @@ export default function ImageUpload({ onStripGenerated }: ImageUploadProps) {
   };
 
   // Testing logic to load Screenshot images
-  const loadTestImages = async () => {
-    try {
-      const testImageNames = Array.from({ length: 8 }, (_, i) => `image${i + 1}.png`);
-      const loadedImages = await Promise.all(testImageNames.map(async (name) => {
-        const response = await fetch(`/testImages/${name}`);
-        const blob = await response.blob();
-        return new File([blob], name, { type: blob.type });
-      }));
+//   const loadTestImages = async () => {
+//     try {
+//       const testImageNames = Array.from({ length: 8 }, (_, i) => `image${i + 1}.png`);
+//       const loadedImages = await Promise.all(testImageNames.map(async (name) => {
+//         const response = await fetch(`/testImages/${name}`);
+//         const blob = await response.blob();
+//         return new File([blob], name, { type: blob.type });
+//       }));
 
-      setImages(loadedImages);
-      processImages(loadedImages);
-    } catch (error) {
-      console.error('Error loading test images:', error);
-      // Handle error (e.g., show user feedback)
-    }
-  };
+//       setImages(loadedImages);
+//       processImages(loadedImages);
+//     } catch (error) {
+//       console.error('Error loading test images:', error);
+//       // Handle error (e.g., show user feedback)
+//     }
+//   };
 
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      loadTestImages();
-    }
-  }, []);
+//   useEffect(() => {
+//     if (process.env.NODE_ENV === 'development') {
+//       loadTestImages();
+//     }
+//   }, []);
 
   return (
     <div className="w-full max-w-md mx-auto">
@@ -159,14 +159,6 @@ export default function ImageUpload({ onStripGenerated }: ImageUploadProps) {
             className="w-full h-auto rounded-lg shadow-sm"
           />
         </div>
-      )}
-      {process.env.NODE_ENV === 'development' && (
-        <button 
-          onClick={loadTestImages} 
-          className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg text-xs transition duration-300"
-        >
-          Load Test Images
-        </button>
       )}
     </div>
   );
